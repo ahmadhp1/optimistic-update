@@ -218,25 +218,25 @@ void main() {
       final model1 = TestModel(id: '1', value: 'v1');
       final model2 = TestModel(id: '2', value: 'v2');
 
-      var syncCount = 0;
       manager = OptimisticOperationManager<TestModel>(
         syncCallback: (_, __) async {
-          syncCount++;
-          if (syncCount == 1) {
-            throw Exception('First sync fails');
-          }
+          await Future.delayed(const Duration(milliseconds: 200));
+          throw Exception('First sync fails');
         },
-        onError: (_, __) async => false, // Don't retry
+        onError: (_, err) async => false, // Don't retry
       );
 
       // Set up new subscription for new manager
       await subscription.cancel();
+
       subscription = manager.stateStream.listen((state) {
         emittedStates.add(state);
       });
 
       manager.initialize([model1, model2]);
       emittedStates.clear();
+
+      await Future.delayed(const Duration(milliseconds: 1000));
 
       // Act - Perform dependent operations
       await manager.performOperation(
@@ -249,7 +249,7 @@ void main() {
       );
 
       // Wait for operations to process
-      await Future.delayed(const Duration(milliseconds: 200));
+      await Future.delayed(const Duration(milliseconds: 2000));
 
       // Assert
       expect(

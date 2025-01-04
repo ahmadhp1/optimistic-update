@@ -117,11 +117,11 @@ class OptimisticOperationManager<T extends OptimisticModel> {
       _pendingOperations.removeFirst();
 
       _isSyncing = false;
-      _processNextOperation();
     } catch (e) {
       _isSyncing = false;
 
-      final shouldRetry = await onError('Failed to sync changes', e);
+      final shouldRetry =
+          await onError('Failed to sync Operation ${operation.id}', e);
 
       if (shouldRetry && operation.retryCount < 3) {
         await Future.delayed(
@@ -133,6 +133,8 @@ class OptimisticOperationManager<T extends OptimisticModel> {
         _revertDependentOperations(operation);
       }
     }
+
+    _processNextOperation();
   }
 
   /// Calculates the exponential backoff time for retries.
@@ -154,7 +156,6 @@ class OptimisticOperationManager<T extends OptimisticModel> {
 
     for (final op in dependentOps) {
       _pendingOperations.remove(op);
-      _revertDependentOperations(op);
 
       final index =
           _currentState.indexWhere((item) => item.id == op.newState.id);
