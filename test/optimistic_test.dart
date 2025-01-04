@@ -1,4 +1,4 @@
-import 'package:optimistic_update/src/operation_manager.dart';
+import 'package:optimistic_update/optimistic_update.dart';
 import 'package:test/test.dart';
 import 'dart:async';
 
