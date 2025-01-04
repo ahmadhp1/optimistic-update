@@ -1,7 +1,8 @@
 name: optimistic_update
 description: "A Flutter package for Optimistic Updates."
 version: 0.0.2
-homepage:
+repository: https://github.com/ahmadhp1/optimistic-update
+issue_tracker: https://github.com/ahmadhp1/optimistic-update/issues
 
 environment:
   sdk: ^3.5.1
