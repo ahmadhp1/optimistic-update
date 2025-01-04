@@ -6,3 +6,7 @@
 ## 1.0.0
 
 * Add README.md
+
+## 1.0.1
+
+* Update README.md
