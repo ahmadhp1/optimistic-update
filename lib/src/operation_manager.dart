@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:math';
 
-import 'package:optimistic/src/operation.dart';
+import 'package:optimistic_update/src/operation.dart';
 import 'package:uuid/uuid.dart';
 
 /// Interface for models that can be used with optimistic operations.
