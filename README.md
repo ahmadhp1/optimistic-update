@@ -1,2 +1,2 @@
 # optimistic-update
-a flutter package to handle optimistic updates
+A flutter package to handle optimistic updates
